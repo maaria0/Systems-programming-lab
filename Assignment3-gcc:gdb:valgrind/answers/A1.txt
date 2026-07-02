@@ -1,0 +1,57 @@
+maria@laptop:~/Desktop/pgms/1b$ gcc -g 1.c -o triangle
+maria@laptop:~/Desktop/pgms/1b$ gdb triangle
+GNU gdb (Ubuntu 15.0.50.20240403-0ubuntu1) 15.0.50.20240403-git
+Copyright (C) 2024 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from triangle...
+(gdb) list
+1	#include<stdio.h>
+2	#include<stdlib.h>
+3	int main(){
+4	int x1,x2,x3,y1,y2,y3;
+5	scanf("%d %d",&x1,&y1);
+6	scanf("%d %d",&x2,&y2);
+7	scanf("%d %d",&x3,&y3);
+8	int twice_area = abs(x1*(y2-y3) + x2*(y3-y1) + x3*(y1-y2));
+9	double area = twice_area / 2.0;
+10	printf("Area = %.1f\n", area);
+(gdb) break 7
+Breakpoint 1 at 0x11e2: file 1.c, line 7.
+(gdb) run
+Starting program: /home/maria/Desktop/pgms/1b/triangle 
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <https://debuginfod.ubuntu.com>
+Enable debuginfod for this session? (y or [n]) y
+Debuginfod has been enabled.
+To make this setting permanent, add 'set debuginfod enabled on' to .gdbinit.
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+2 3
+next
+
+Breakpoint 1, main () at 1.c:7
+7	scanf("%d %d",&x3,&y3);
+(gdb) print x1
+$1 = 2
+(gdb) print y1
+$2 = 3
+(gdb) exit
+A debugging session is active.
+
+	Inferior 1 [process 11441] will be killed.
+
+Quit anyway? (y or n) y
+

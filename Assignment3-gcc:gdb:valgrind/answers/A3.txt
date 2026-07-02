@@ -1,0 +1,35 @@
+maria@laptop:~/Desktop/pgms/3b$ gcc -g -O0 bug.c -o bug
+maria@laptop:~/Desktop/pgms/3b$ valgrind --leak-check=full ./bug
+==15561== Memcheck, a memory error detector
+==15561== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==15561== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==15561== Command: ./bug
+==15561== 
+==15561== Invalid write of size 4
+==15561==    at 0x10916B: f (bug.c:4)
+==15561==    by 0x109180: main (bug.c:7)
+==15561==  Address 0x4a82068 is 0 bytes after a block of size 40 alloc'd
+==15561==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15561==    by 0x10915E: f (bug.c:3)
+==15561==    by 0x109180: main (bug.c:7)
+==15561== 
+==15561== 
+==15561== HEAP SUMMARY:
+==15561==     in use at exit: 40 bytes in 1 blocks
+==15561==   total heap usage: 1 allocs, 0 frees, 40 bytes allocated
+==15561== 
+==15561== 40 bytes in 1 blocks are definitely lost in loss record 1 of 1
+==15561==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15561==    by 0x10915E: f (bug.c:3)
+==15561==    by 0x109180: main (bug.c:7)
+==15561== 
+==15561== LEAK SUMMARY:
+==15561==    definitely lost: 40 bytes in 1 blocks
+==15561==    indirectly lost: 0 bytes in 0 blocks
+==15561==      possibly lost: 0 bytes in 0 blocks
+==15561==    still reachable: 0 bytes in 0 blocks
+==15561==         suppressed: 0 bytes in 0 blocks
+==15561== 
+==15561== For lists of detected and suppressed errors, rerun with: -s
+==15561== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+

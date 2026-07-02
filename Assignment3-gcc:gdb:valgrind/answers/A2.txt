@@ -1,0 +1,79 @@
+maria@laptop:~/Desktop/pgms/2b$ gdb ./fib
+GNU gdb (Ubuntu 15.0.50.20240403-0ubuntu1) 15.0.50.20240403-git
+Copyright (C) 2024 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./fib...
+(gdb) break fib
+Breakpoint 1 at 0x1198: file fib.c, line 4.
+(gdb) run
+Starting program: /home/maria/Desktop/pgms/2b/fib 
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <https://debuginfod.ubuntu.com>
+Enable debuginfod for this session? (y or [n]) y
+Debuginfod has been enabled.
+To make this setting permanent, add 'set debuginfod enabled on' to .gdbinit.
+Downloading separate debug info for system-supplied DSO at 0x7ffff7fc3000
+[Thread debugging using libthread_db enabled]                                                                                   
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+Enter n: 5
+
+Breakpoint 1, fib (n=5) at fib.c:4
+4	    if (n <= 1) return n;
+(gdb) watch n
+Hardware watchpoint 2: n
+(gdb) display n
+1: n = 5
+(gdb) step
+7	    n = n - 1;
+1: n = 5
+(gdb) step
+
+Hardware watchpoint 2: n
+
+Old value = 5
+New value = 4
+fib (n=4) at fib.c:8
+8	    int a = fib(n);
+1: n = 4
+(gdb) step
+
+Breakpoint 1, fib (n=4) at fib.c:4
+4	    if (n <= 1) return n;
+1: n = 4
+(gdb) step
+7	    n = n - 1;
+1: n = 4
+(gdb) step
+8	    int a = fib(n);
+1: n = 3
+(gdb) step
+
+Breakpoint 1, fib (n=3) at fib.c:4
+4	    if (n <= 1) return n;
+1: n = 3
+(gdb) step
+7	    n = n - 1;
+1: n = 3
+(gdb) step
+8	    int a = fib(n);
+1: n = 2
+(gdb) quit
+A debugging session is active.
+
+	Inferior 1 [process 12832] will be killed.
+
+Quit anyway? (y or n) y
+

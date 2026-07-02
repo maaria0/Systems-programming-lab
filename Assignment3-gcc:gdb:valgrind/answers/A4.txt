@@ -1,0 +1,163 @@
+a)
+maria@laptop:~/Desktop/pgms/4b$ gcc -g -O0 divbug.c -o divbug
+maria@laptop:~/Desktop/pgms/4b$ valgrind --track-origins=yes ./divbug
+==18172== Memcheck, a memory error detector
+==18172== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==18172== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==18172== Command: ./divbug
+==18172== 
+==18172== Conditional jump or move depends on uninitialised value(s)
+==18172==    at 0x48D70CB: __printf_buffer (vfprintf-process-arg.c:58)
+==18172==    by 0x48D873A: __vfprintf_internal (vfprintf-internal.c:1544)
+==18172==    by 0x48CD1B2: printf (printf.c:33)
+==18172==    by 0x109179: main (divbug.c:6)
+==18172==  Uninitialised value was created by a stack allocation
+==18172==    at 0x109149: main (divbug.c:3)
+==18172== 
+==18172== Use of uninitialised value of size 8
+==18172==    at 0x48CC0BB: _itoa_word (_itoa.c:183)
+==18172==    by 0x48D6C9B: __printf_buffer (vfprintf-process-arg.c:155)
+==18172==    by 0x48D873A: __vfprintf_internal (vfprintf-internal.c:1544)
+==18172==    by 0x48CD1B2: printf (printf.c:33)
+==18172==    by 0x109179: main (divbug.c:6)
+==18172==  Uninitialised value was created by a stack allocation
+==18172==    at 0x109149: main (divbug.c:3)
+==18172== 
+==18172== Conditional jump or move depends on uninitialised value(s)
+==18172==    at 0x48CC0CC: _itoa_word (_itoa.c:183)
+==18172==    by 0x48D6C9B: __printf_buffer (vfprintf-process-arg.c:155)
+==18172==    by 0x48D873A: __vfprintf_internal (vfprintf-internal.c:1544)
+==18172==    by 0x48CD1B2: printf (printf.c:33)
+==18172==    by 0x109179: main (divbug.c:6)
+==18172==  Uninitialised value was created by a stack allocation
+==18172==    at 0x109149: main (divbug.c:3)
+==18172== 
+==18172== Conditional jump or move depends on uninitialised value(s)
+==18172==    at 0x48D6D85: __printf_buffer (vfprintf-process-arg.c:186)
+==18172==    by 0x48D873A: __vfprintf_internal (vfprintf-internal.c:1544)
+==18172==    by 0x48CD1B2: printf (printf.c:33)
+==18172==    by 0x109179: main (divbug.c:6)
+==18172==  Uninitialised value was created by a stack allocation
+==18172==    at 0x109149: main (divbug.c:3)
+==18172== 
+Result: 0
+==18172== 
+==18172== HEAP SUMMARY:
+==18172==     in use at exit: 0 bytes in 0 blocks
+==18172==   total heap usage: 1 allocs, 1 frees, 1,024 bytes allocated
+==18172== 
+==18172== All heap blocks were freed -- no leaks are possible
+==18172== 
+==18172== For lists of detected and suppressed errors, rerun with: -s
+==18172== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 0 from 0)
+maria@laptop:~/Desktop/pgms/4b$ gdb ./divbug
+GNU gdb (Ubuntu 15.0.50.20240403-0ubuntu1) 15.0.50.20240403-git
+Copyright (C) 2024 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+--Type <RET> for more, q to quit, c to continue without paging--
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./divbug...
+(gdb) break main
+Breakpoint 1 at 0x1155: file divbug.c, line 5.
+(gdb) run
+Starting program: /home/maria/Desktop/pgms/4b/divbug 
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <https://debuginfod.ubuntu.com>
+Enable debuginfod for this session? (y or [n]) y
+Debuginfod has been enabled.
+To make this setting permanent, add 'set debuginfod enabled on' to .gdbinit.
+Downloading separate debug info for system-supplied DSO at 0x7ffff7fc3000
+[Thread debugging using libthread_db enabled]                                   
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 1, main () at divbug.c:5
+5	    int result = 10 / t;
+(gdb) print t
+$1 = -8776
+(gdb) next
+6	    printf("Result: %d\n", result);
+(gdb) next
+Result: 0
+
+
+
+
+
+
+
+
+b)
+
+maria@laptop:~/Desktop/pgms/4b$ gcc -g divbug.c -o divbug
+maria@laptop:~/Desktop/pgms/4b$ valgrind --track-origins=yes ./divbug
+==10381== Memcheck, a memory error detector
+==10381== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==10381== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==10381== Command: ./divbug
+==10381== 
+3
+Result: 3
+==10381== 
+==10381== HEAP SUMMARY:
+==10381==     in use at exit: 0 bytes in 0 blocks
+==10381==   total heap usage: 2 allocs, 2 frees, 2,048 bytes allocated
+==10381== 
+==10381== All heap blocks were freed -- no leaks are possible
+==10381== 
+==10381== For lists of detected and suppressed errors, rerun with: -s
+==10381== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+maria@laptop:~/Desktop/pgms/4b$  gcc -g -O0 divbug.c -o divbug
+maria@laptop:~/Desktop/pgms/4b$ gdb ./divbug
+GNU gdb (Ubuntu 15.0.50.20240403-0ubuntu1) 15.0.50.20240403-git
+Copyright (C) 2024 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./divbug...
+(gdb) run
+Starting program: /home/maria/Desktop/pgms/4b/divbug 
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <https://debuginfod.ubuntu.com>
+Enable debuginfod for this session? (y or [n]) y
+Debuginfod has been enabled.
+To make this setting permanent, add 'set debuginfod enabled on' to .gdbinit.
+Downloading separate debug info for system-supplied DSO at 0x7ffff7fc3000
+[Thread debugging using libthread_db enabled]                                   
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+3
+Result: 3
+[Inferior 1 (process 10407) exited normally]
+(gdb) run
+Starting program: /home/maria/Desktop/pgms/4b/divbug 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+0
+[Inferior 1 (process 10413) exited normally]
+(gdb) exit
+
+
+
+

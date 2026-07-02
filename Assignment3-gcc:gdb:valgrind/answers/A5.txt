@@ -1,0 +1,156 @@
+maria@laptop:~/Desktop/pgms/5b$ gcc -g 1.c -o prog
+1.c: In function ‘fn_leak’:
+1.c:7:1: warning: ‘__builtin_memcpy’ writing 59 bytes into a region of size 50 overflows the destination [-Wstringop-overflow=]
+    7 | strcpy(str, "This is an english sentence to be printed using C program.");
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1.c:5:13: note: destination object of size 50 allocated by ‘malloc’
+    5 | char *str = malloc(50);
+      |             ^~~~~~~~~~
+maria@laptop:~/Desktop/pgms/5b$ valgrind --leak-check=full ./prog
+==9852== Memcheck, a memory error detector
+==9852== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==9852== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==9852== Command: ./prog
+==9852== 
+==9852== Invalid write of size 8
+==9852==    at 0x109219: fn_leak (1.c:7)
+==9852==    by 0x1092AA: main (1.c:19)
+==9852==  Address 0x4a8206b is 43 bytes inside a block of size 50 alloc'd
+==9852==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9852==    by 0x10919E: fn_leak (1.c:5)
+==9852==    by 0x1092AA: main (1.c:19)
+==9852== 
+==9852== Invalid write of size 8
+==9852==    at 0x10921D: fn_leak (1.c:7)
+==9852==    by 0x1092AA: main (1.c:19)
+==9852==  Address 0x4a82073 is 1 bytes after a block of size 50 alloc'd
+==9852==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9852==    by 0x10919E: fn_leak (1.c:5)
+==9852==    by 0x1092AA: main (1.c:19)
+==9852== 
+==9852== Invalid read of size 1
+==9852==    at 0x484F234: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9852==    by 0x48D7DA7: __printf_buffer (vfprintf-process-arg.c:435)
+==9852==    by 0x48D873A: __vfprintf_internal (vfprintf-internal.c:1544)
+==9852==    by 0x48CD1B2: printf (printf.c:33)
+==9852==    by 0x10923B: fn_leak (1.c:8)
+==9852==    by 0x1092AA: main (1.c:19)
+==9852==  Address 0x4a82072 is 0 bytes after a block of size 50 alloc'd
+==9852==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9852==    by 0x10919E: fn_leak (1.c:5)
+==9852==    by 0x1092AA: main (1.c:19)
+==9852== 
+==9852== Invalid read of size 1
+==9852==    at 0x4852EED: memmove (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9852==    by 0x48CDD87: memcpy (string_fortified.h:29)
+==9852==    by 0x48CDD87: __printf_buffer_write (Xprintf_buffer_write.c:39)
+==9852==    by 0x48D651B: __printf_buffer (vfprintf-process-arg.c:501)
+==9852==    by 0x48D873A: __vfprintf_internal (vfprintf-internal.c:1544)
+==9852==    by 0x48CD1B2: printf (printf.c:33)
+==9852==    by 0x10923B: fn_leak (1.c:8)
+==9852==    by 0x1092AA: main (1.c:19)
+==9852==  Address 0x4a82072 is 0 bytes after a block of size 50 alloc'd
+==9852==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9852==    by 0x10919E: fn_leak (1.c:5)
+==9852==    by 0x1092AA: main (1.c:19)
+==9852== 
+==9852== Invalid read of size 1
+==9852==    at 0x4852EE0: memmove (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9852==    by 0x48CDD87: memcpy (string_fortified.h:29)
+==9852==    by 0x48CDD87: __printf_buffer_write (Xprintf_buffer_write.c:39)
+==9852==    by 0x48D651B: __printf_buffer (vfprintf-process-arg.c:501)
+==9852==    by 0x48D873A: __vfprintf_internal (vfprintf-internal.c:1544)
+==9852==    by 0x48CD1B2: printf (printf.c:33)
+==9852==    by 0x10923B: fn_leak (1.c:8)
+==9852==    by 0x1092AA: main (1.c:19)
+==9852==  Address 0x4a82073 is 1 bytes after a block of size 50 alloc'd
+==9852==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9852==    by 0x10919E: fn_leak (1.c:5)
+==9852==    by 0x1092AA: main (1.c:19)
+==9852== 
+fn_leak: This is an english sentence to be printed using C program.
+==9852== Invalid read of size 4
+==9852==    at 0x10927C: fn_dangle (1.c:16)
+==9852==    by 0x1092B4: main (1.c:20)
+==9852==  Address 0x4a82500 is 0 bytes inside a block of size 4 free'd
+==9852==    at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9852==    by 0x109277: fn_dangle (1.c:15)
+==9852==    by 0x1092B4: main (1.c:20)
+==9852==  Block was alloc'd at
+==9852==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9852==    by 0x109256: fn_dangle (1.c:12)
+==9852==    by 0x1092B4: main (1.c:20)
+==9852== 
+Pointer value: 42
+==9852== 
+==9852== HEAP SUMMARY:
+==9852==     in use at exit: 50 bytes in 1 blocks
+==9852==   total heap usage: 3 allocs, 2 frees, 1,078 bytes allocated
+==9852== 
+==9852== 50 bytes in 1 blocks are definitely lost in loss record 1 of 1
+==9852==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9852==    by 0x10919E: fn_leak (1.c:5)
+==9852==    by 0x1092AA: main (1.c:19)
+==9852== 
+==9852== LEAK SUMMARY:
+==9852==    definitely lost: 50 bytes in 1 blocks
+==9852==    indirectly lost: 0 bytes in 0 blocks
+==9852==      possibly lost: 0 bytes in 0 blocks
+==9852==    still reachable: 0 bytes in 0 blocks
+==9852==         suppressed: 0 bytes in 0 blocks
+==9852== 
+==9852== For lists of detected and suppressed errors, rerun with: -s
+==9852== ERROR SUMMARY: 21 errors from 7 contexts (suppressed: 0 from 0)
+maria@laptop:~/Desktop/pgms/5b$ gdb ./prog
+GNU gdb (Ubuntu 15.0.50.20240403-0ubuntu1) 15.0.50.20240403-git
+Copyright (C) 2024 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./prog...
+(gdb) break fn_dangle
+Breakpoint 1 at 0x124d: file 1.c, line 12.
+(gdb) run
+Starting program: /home/maria/Desktop/pgms/5b/prog 
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <https://debuginfod.ubuntu.com>
+Enable debuginfod for this session? (y or [n]) y
+Debuginfod has been enabled.
+To make this setting permanent, add 'set debuginfod enabled on' to .gdbinit.
+Downloading separate debug info for system-supplied DSO at 0x7ffff7fc3000
+[Thread debugging using libthread_db enabled]                                   
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+fn_leak: This is an english sentence to be printed using C program.
+
+Breakpoint 1, fn_dangle () at 1.c:12
+12	int *ptr = malloc(sizeof(int));
+(gdb) next
+13	if (!ptr) return;
+(gdb) next
+14	*ptr = 42;
+(gdb) next
+15	free(ptr);
+(gdb) next
+16	printf("Pointer value: %d\n", *ptr);
+(gdb) print ptr
+$1 = (int *) 0x5555555596f0
+(gdb) print *ptr
+$2 = 1431655769
+(gdb) exit
+A debugging session is active.
+
+	Inferior 1 [process 9867] will be killed.
+
+Quit anyway? (y or n) y
+
