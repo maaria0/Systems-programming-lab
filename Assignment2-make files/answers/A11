@@ -1,0 +1,12 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -O2
+SRCS = $(wildcard *.c)
+OBJS = $(SRCS:.c=.o)
+autoapp : $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o autoapp
+%.o : %.c
+	$(CC) $(CFLAGS) -c $<
+clean: 
+	rm -f *.o autoapp
+	
+

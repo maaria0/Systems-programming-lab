@@ -1,0 +1,6 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -O2
+welcome : welcome.c
+	$(CC) $(CFLAGS) welcome.c -o welcome
+clean :
+	rm -f welcome

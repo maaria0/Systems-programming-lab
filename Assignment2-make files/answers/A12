@@ -1,0 +1,10 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -O2
+calculator: math.o util.o
+	$(CC) $(CFLAGS) $^ -o $@
+math.o : math.c math.h
+	$(CC) $(CFLAGS) -c math.c -o math.o
+util.o : util.c util.h
+	$(CC) $(CFLAGS) -c util.c -o util.o
+clean:
+	rm -f *.o calculator

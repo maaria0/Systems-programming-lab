@@ -1,0 +1,2 @@
+libdata.a: x.o y.o
+	ar rcs libdata.a x.o y.o

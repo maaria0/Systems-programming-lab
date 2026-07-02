@@ -1,0 +1,6 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -O2
+sumprog : sum.c
+	$(CC) $(CFLAGS) sum.c -o sumprog
+clean:
+	rm -f sumprog

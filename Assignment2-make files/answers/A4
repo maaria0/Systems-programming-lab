@@ -1,0 +1,11 @@
+CC=gcc
+CFLAGS= -Wall -Wextra -O2
+hello : hello.o
+	$(CC) $(CFLAGS) hello.o -o hello
+hello.o : hello.c hello.h
+	$(CC) $(CFLAGS) -c hello.c -o hello.o
+clean :
+	rm -f hello.o hello
+	
+	
+

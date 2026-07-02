@@ -1,0 +1,16 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -O2 -fPIC
+all : libsortutils.so main
+bubble_sort.o: bubble_sort.c 
+	$(CC) $(CFLAGS) -c bubble_sort.c -o bubble_sort.o
+libsortutils.so : bubble_sort.o
+	$(CC) -shared -o libsortutils.so bubble_sort.o
+main.o : main.c
+	$(CC) $(CFLAGS) -c main.c 
+main: main.o libsortutils.so
+	$(CC) -o main main.o -L. -lsortutils
+clean :
+	rm -f *.o *.so main
+
+
+

@@ -1,0 +1,14 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -O2
+OBJS = main.o input.o output.o
+ioapp : $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o ioapp
+main.o : main.c input.h output.h
+	$(CC) $(CFLAGS) -c main.c
+input.o : input.c input.h
+	$(CC) $(CFLAGS) -c input.c
+output.o : output.c output.h
+	$(CC) $(CFLAGS) -c output.c
+clean:
+	rm -f *.o ioapp
+

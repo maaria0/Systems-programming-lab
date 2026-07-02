@@ -1,0 +1,31 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -O2 -fPIC
+OBJS = shift_encoding.o shift_decoding.o
+PICOBJS = shift_encoding.pic.o shift_decoding.pic.o
+all : libcompress.a libcompress.so encodec_shared encodec_static
+#make static library
+libcompress.a : $(OBJS)
+	ar rcs libcompress.a $(OBJS)
+shift_encoding.o : shift_encoding.c
+	$(CC) $(CFLAGS) -c shift_encoding.c -o shift_encoding.o
+shift_decoding.o : shift_decoding.c
+	$(CC) $(CFLAGS) -c shift_decoding.c -o shift_decoding.o
+#make shared library
+libcompress.so : $(PICOBJS) 
+	$(CC)  -shared -o libcompress.so $(PICOBJS)
+shift_encoding.pic.o : shift_encoding.c
+	$(CC) $(CFLAGS) -c shift_encoding.c -o shift_encoding.pic.o
+shift_decoding.pic.o : shift_decoding.c
+	$(CC) $(CFLAGS) -c shift_decoding.c -o shift_decoding.pic.o
+#build main's object
+main.o : main.c
+	$(CC) $(CFLAGS) -c main.c -o main.o
+#connect static library to encodec_static
+encodec_static : main.o libcompress.a
+	$(CC) -o encodec_static main.o ./libcompress.a
+encodec_shared : main.o libcompress.so
+	$(CC) -o encodec_shared main.o -L. -lcompress
+clean :
+	rm -f *.o *.a *.so encodec_static encodec_shared
+
+	

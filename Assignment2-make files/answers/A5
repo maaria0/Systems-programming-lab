@@ -1,0 +1,9 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -O2
+calc : calc.o
+	$(CC) $(CFLAGS) calc.o -o calc
+calc.o : calc.c calc.h
+	$(CC) $(CFLAGS) -c calc.c -o calc.o
+clean :
+	rm -f calc.o calc
+

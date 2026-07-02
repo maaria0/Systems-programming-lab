@@ -1,0 +1,12 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -O2
+prog : x.c y.c
+	$(CC) $(CFLAGS) x.c y.c -o prog
+.PHONY:z
+z : z.o
+
+z.o : z.c
+	$(CC) $(CFLAGS) -c z.c 
+clean:
+	rm -f *.o prog
+

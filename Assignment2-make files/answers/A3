@@ -1,0 +1,10 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -O2
+program : main.o helper.o
+	$(CC) $(CFLAGS) main.o helper.o -o program
+main.o : main.c
+	$(CC) $(CFLAGS) -c main.c
+helper.o : helper.c
+	$(CC) $(CFLAGS) -c helper.c
+clean:
+	rm -f helper.o main.o program

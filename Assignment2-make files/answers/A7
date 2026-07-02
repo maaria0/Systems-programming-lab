@@ -1,0 +1,12 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -O2 
+libab.a : a.o b.o
+	ar rcs libab.a a.o b.o
+a.o : a.c
+	$(CC) $(CFLAGS) -c a.c -o a.o
+b.o : b.c
+	$(CC) $(CFLAGS) -c b.c -o b.o
+clean : 
+	rm -f a.o b.o libab.a
+	
+
